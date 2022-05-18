@@ -145,10 +145,21 @@ Make a guess on a specific game for a specific user:
 ## Project 5 - Dependency Changes
 1. change /start/ in redis_connect.py to take in a username and return the status, user_id, game_id. It will also return the guesses made if the game is in progress
 
-2. change /get_game/ in redis_connect.py to take in a UUID as user_id instead of the old user_id, This method now returns a status for if the user_id is invalid, the game_id is invalid, or if both are valid. If both are valid, the endpoint still gives the current guesses and remainig guesses.
+2. change /get_game/ in redis_connect.py to take in a UUID as user_id instead of the old user_id, This method now returns a status for if the user_id is invalid, the game_id is invalid, or if both are valid. If both are valid, the endpoint still gives the current guesses and remainig guesses. Also change this endpoint to a POST so it can take in a body in httpx.
 
 3. change /make_guess/ in redis_connect.py to take in a UUID as user_id instead of the old user_id
 
-4. change /finish/ in stats.py to take in a UUID as user_id instead of the old user_id
+4. change /finish/ in stats.py to take in a UUID as user_id instead of the old user_id,
 
-5. change /stats/ in stats.py to take in a UUID as user_id instead of the old user_id
+5. change /stats/ in stats.py to take in a UUID as user_id instead of the old user_id, Also change this endpoint to a post so it can take in a body in httpx.
+
+## Project 5 - Endpoints
+Start a new game for a specific user:
+```bash
+./bin/p5-endpoints/new_game.sh <user_name>
+```
+
+Run the game/{id} endpoint to play the game:
+```bash
+./bin/p5-endpoints/game_id.sh <game_id> <user_id> <guess>
+```

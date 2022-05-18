@@ -63,7 +63,11 @@ def process_end(
     stats: Stats, response: Response, db: list() = Depends(get_db)
 ):
     today = date.today().strftime("%Y-%m-%d")
-    guid = uuid.UUID(stats.user_id).bytes_le
+    try:
+        guid = uuid.UUID(stats.user_id).bytes_le
+    except:
+        return {"msg": "Error: Invalid GUID " }
+    
     print(type(guid), guid)
     shard = int(uuid.UUID(bytes_le=guid)) % 3
     
@@ -87,7 +91,7 @@ def process_end(
     
     rows = cur.fetchall()
     if len(rows) != 0:
-        return {"msg": "Game Already Finished"}
+        return {"msg": "Error: Game Already Finished"}
     
     try:
         cur = db[shard].cursor()
@@ -175,13 +179,16 @@ def process_end(
 
     return {"msg": "Failed to Post Win/Loss"}
 
-@app.get("/stats/", status_code=status.HTTP_200_OK)
+@app.post("/stats/", status_code=status.HTTP_200_OK)
 def fetch_stats(
     user: User, response: Response, db: list() = Depends(get_db)
 ):
     today = date.today().strftime("%Y-%m-%d")
+    try:
+        cur_id = uuid.UUID(user.user_id).bytes_le
+    except:
+        return {"msg": "Error: Invalid GUID " }
     
-    cur_id = uuid.UUID(user.user_id).bytes_le
     shard = int(uuid.UUID(bytes_le=cur_id)) % 3
     result = OrderedDict()
     try:

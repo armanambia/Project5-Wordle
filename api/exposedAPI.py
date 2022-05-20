@@ -24,7 +24,9 @@ app = FastAPI()
 @app.post("/game/new/", status_code=status.HTTP_200_OK)
 def new_game(s: User, response: Response):
     res = OrderedDict()
-    # r = httpx.post('https://httpbin.org/post', data={'key': 'value'})
+    # testing async
+    # async with httpx.AsyncClient() as client:
+    #     start= await client.put('http://127.0.0.1:9999/start/', json={'username': s.username})
     r = httpx.put('http://127.0.0.1:9999/start/', json={'username': s.username})
     start_resp = r.json()
     res.update(start_resp)

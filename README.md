@@ -1,6 +1,11 @@
 # Wordle Clone
 
-### Created by
+### Project 5 - Group 19 Created by
+* Armanul Ambia
+* Gaurav Joshi
+* Steven Tran
+
+### Project 4 Dependencies Created by
 * Aaron Lieberman
 * Armanul Ambia
 * Iftekharul Islam
